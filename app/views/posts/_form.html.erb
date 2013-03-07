@@ -1,0 +1,33 @@
+<%= form_for @post, :url => (@post.id.present?)?post_url(@post.id):posts_url, :html => { :multipart => true } do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+  <div class="field">
+    <%= f.label :post_type, "Type of post:" %><br />
+    <%= f.radio_button :post_type, 0%>
+    <%= f.label :post_type, "Text Only", :value => 'text_only' %><br />
+    <%= f.radio_button :post_type, 1%>
+    <%= f.label :post_type, "Picture", :value => 'picture' %><br />
+    <%= f.radio_button :post_type, 2%>
+    <%= f.label :post_type, "Video", :value => 'video' %><br />
+  </div>
+  <div class="field default-hidden">
+    <%= f.file_field :file%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

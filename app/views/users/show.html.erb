@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+<p>
+  <b>Userame:</b>
+  <%= @user.username %>
+</p>
+
+<p>
+  <%= link_to(image_tag(@user.gravatar_url(:default => "identicon", :size => "50px")), "https://en.gravatar.com/site/login", :confirm => "Visit gravatar.com to edit your avatar?", :target => '_blank')%>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+<%= paginate @posts %>
+<table>
+  <tr>
+    <th>Posts by <%= @user.name %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td>
+      <% if post.post_type == 1 %>
+        <%= image_tag post.file.url(:thumb) %>
+      <% end %>
+      <%= post.body %>
+    </td>
+    <td><%= link_to 'Show', post %></td>
+    <% if @user.id == session[:user_id] #view own profile%> 
+    	<td><%= link_to 'Edit', edit_post_path(post) %></td>
+    	<td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<% if @user.id == session[:user_id] #view own profile%> 
+	<p>
+		<%= link_to 'See your feed', feeds_url %>
+	</p>
+  <p>
+    <%= link_to 'Post something', new_post_url %>
+  </p>
+	<%= link_to 'Edit', edit_user_path(@user) %> |
+<% elsif @current_user.follows.exists?(:followee_id => @user.id, :follower_id => session[:user_id]) %>
+    <%= link_to "Unfollow #{@user.username}", follow_url(@user.id), :method => :delete %>
+  <% elsif @current_user.id != @user.id%>
+    <%= link_to "Follow #{@user.username}", follow_url(@user.id), :method => :post %>
+  <% end %>
+<%= link_to 'Back', users_path %>

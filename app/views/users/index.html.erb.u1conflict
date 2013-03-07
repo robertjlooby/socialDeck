@@ -1,0 +1,29 @@
+<h1>User Wall</h1>
+
+<%= paginate @posts %>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= image_tag post.user.gravatar_url(:default => "identicon") %><%= post.user.username %></td>
+    <td><%= post.body %></td>
+    <td><%= link_to 'Show', post %></td>
+    <% if @user.id == session[:user_id] #view own profile%> 
+      <td><%= link_to 'Edit', edit_post_path(post) %></td>
+      <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+
+
+<br />
+
