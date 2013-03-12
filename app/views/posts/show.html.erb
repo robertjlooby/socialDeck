@@ -34,7 +34,7 @@
 	</p>
 <% end %>
 
-<%= link_to 'Comment on this post', new_comment_path %>
+<%= link_to 'Comment on this post', new_comment_path(@post.id) %>
 
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

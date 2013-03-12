@@ -12,14 +12,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @user = User.find(session[:user_id])
-    poster_ids = []
-    @user.follows.each do |follow|
-      poster_ids = poster_ids.push(follow[:followee_id])
+    @users = User.order("username desc")
+    if params[:search].present?
+      @users = @users.where("email LIKE ? OR name LIKE ? OR username LIKE ?", 
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
-    @posts = Post.order("updated_at desc")
-    @posts = @posts.where({:user_id => poster_ids})
-    @posts = @posts.page(params[:page]).per(20)
+    @users = @users.page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb

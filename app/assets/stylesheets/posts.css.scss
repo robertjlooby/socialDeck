@@ -4,3 +4,23 @@
 .default-hidden {
 	display: none;
 }
+
+[class^="_post"] {
+	.content-area {
+		margin-left: 55px;
+		margin-top: -60px;
+		p {
+			margin: 2px;
+		}
+	}
+}
+.post-comment {
+	.content-area {
+		margin-top: -40px;
+		margin-left: 45px;
+	}
+}
+
+[id^="post"][id$="-new-comment"] {
+	display: none;
+}

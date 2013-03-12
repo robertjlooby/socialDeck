@@ -14,6 +14,9 @@ gem 'gravtastic'
 # Paperclip for file uploads
 gem "paperclip", "~> 3.0"
 
+# Font Awesome for awesome fonts
+gem "font-awesome-rails"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

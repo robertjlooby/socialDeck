@@ -1,0 +1,32 @@
+<% show_comments = false unless defined? show_comments %>
+<div class="_post<%= post.id %>">
+  <%= image_tag post.user.gravatar_url(:default => "identicon", :size => "50px") %>
+  <div class="content-area">
+    <p><%= link_to post.user.username, post.user %></p>
+    <% if post.post_type == 1 #picture in post %>
+      <%= image_tag post.file.url %>
+    <% end %>
+    <p><%= post.body %></p>
+    <p>
+      <%= link_to 'Show', post %>
+      <% if post.user_id == session[:user_id] %>
+        <%= link_to post_path(post.id), :method => :delete do %><i class="icon-trash"></i><% end %>
+        <%= link_to edit_post_path(post.id) do %><i class="icon-edit"></i><% end %>
+      <% end %>
+    </p>
+    <% if show_comments %>
+      <% post.comments.each do |comment| %>
+        <div class="post-comment">
+          <%= render comment %>
+        </div>
+      <% end %>
+      <div id="post<%= post.id %>-new-comment-link" %>
+        <%= link_to "#" do %><i class="icon-comment"></i><% end %>
+      </div>
+      <%= form_for Comment.new, :remote => true do |f| %>
+        <%= f.hidden_field :post_id, :value => post.id %>
+        <%= f.text_field :body, :size => 50, :id => "post#{post.id}-new-comment" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

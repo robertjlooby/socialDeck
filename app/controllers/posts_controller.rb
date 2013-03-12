@@ -41,7 +41,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @current_user = User.find_by_id(session[:user_id])
     @comments = Comment.where(:post_id => params[:id])
-    session[:post_id] = params[:id] #for use in comments
 
     respond_to do |format|
       format.html # show.html.erb

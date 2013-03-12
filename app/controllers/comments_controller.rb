@@ -1,11 +1,21 @@
 class CommentsController < ApplicationController
 
 before_filter :authorize_user, :only => [:edit, :update, :destroy]
+# only allow a user to comment on a post of someone they follow or their own
+before_filter :authorize_comment_on_post, :only => [:create]
 
   def authorize_user
     @comment = Comment.find(params[:id])
     @user = User.find_by_id(@comment.user_id)
     if @user.id != session[:user_id]
+      redirect_to root_url
+    end
+  end
+
+  def authorize_comment_on_post
+    post_owner_id = Post.find_by_id(params[:comment][:post_id]).user_id
+    user_follows = Follow.where(:follower_id => session[:user_id], :followee_id => post_owner_id).exists?
+    unless user_follows or post_owner_id == session[:user_id]
       redirect_to root_url
     end
   end
@@ -32,10 +42,11 @@ before_filter :authorize_user, :only => [:edit, :update, :destroy]
     end
   end
 
-  # GET /comments/new
-  # GET /comments/new.json
+  # GET /comments/new/1
+  # GET /comments/new/1.json
   def new
     @comment = Comment.new
+    @post_id = params[:post_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,11 +64,12 @@ before_filter :authorize_user, :only => [:edit, :update, :destroy]
   def create
     @comment = Comment.new
     @comment.body = params[:comment][:body]
-    @comment.post_id = session[:post_id]
+    @comment.post_id = params[:comment][:post_id]
     @comment.user_id = session[:user_id]
 
     respond_to do |format|
       if @comment.save
+        format.js
         format.html { redirect_to Post.find_by_id(@comment.post_id), notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else

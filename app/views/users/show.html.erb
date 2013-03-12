@@ -17,35 +17,15 @@
   <b>Email:</b>
   <%= @user.email %>
 </p>
+<h3><%= @user.username %>'s posts</h3>
 <%= paginate @posts %>
-<table>
-  <tr>
-    <th>Posts by <%= @user.name %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @posts.each do |post| %>
-  <tr>
-    <td>
-      <% if post.post_type == 1 %>
-        <%= image_tag post.file.url(:thumb) %>
-      <% end %>
-      <%= post.body %>
-    </td>
-    <td><%= link_to 'Show', post %></td>
-    <% if @user.id == session[:user_id] #view own profile%> 
-    	<td><%= link_to 'Edit', edit_post_path(post) %></td>
-    	<td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
+  <div class="post">
+    <%= render post %>
+  </div>
 <% end %>
-</table>
+
 <% if @user.id == session[:user_id] #view own profile%> 
-	<p>
-		<%= link_to 'See your feed', feeds_url %>
-	</p>
   <p>
     <%= link_to 'Post something', new_post_url %>
   </p>

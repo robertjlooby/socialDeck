@@ -21,5 +21,4 @@ class SessionsController < ApplicationController
     return
   end
 
-
 end

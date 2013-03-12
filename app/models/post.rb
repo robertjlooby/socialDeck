@@ -4,8 +4,8 @@ class Post < ActiveRecord::Base
   has_attached_file :file, :styles => {:micro => "10x10>", :thumb => "50x50>"}, :default_url => "missing.png"
 
   belongs_to :user
-  has_many :comments
-  has_many :posttags
+  has_many :comments, :dependent => :destroy
+  has_many :posttags, :dependent => :destroy
   has_many :tags, :through => :posttags
 
   validates_presence_of :body

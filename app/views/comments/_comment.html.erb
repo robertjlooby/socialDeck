@@ -1,0 +1,11 @@
+<%= image_tag comment.user.gravatar_url(:default => "identicon", :size => "40px") %>
+<div class="content-area">
+  <p><%= link_to comment.user.username, comment.user %></p>
+  <p><%= comment.body %></p>
+  <p>
+    <% if comment.user_id == session[:user_id] %>
+      <%= link_to comment_path(comment.id), :method => :delete do %><i class="icon-trash"></i><% end %>
+      <%= link_to edit_comment_path(comment.id)  do %><i class="icon-edit"></i><% end %>
+    <% end %>
+  </p>
+</div>
