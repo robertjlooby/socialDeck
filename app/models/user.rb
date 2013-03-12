@@ -32,4 +32,9 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
+  def send_account_activation
+    generate_token(:user_confirmation_token)
+    save!
+    UserMailer.activate_account(self).deliver
+  end
 end

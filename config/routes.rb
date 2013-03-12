@@ -5,6 +5,7 @@ Socialdeck::Application.routes.draw do
   resources :password_resets
   resources :posts
   resources :users
+  get 'users/new/:token' => 'users#confirm', :as => :confirm_user
   # only create new comments for a specified post
   resources :comments, :except => [:new]
   get 'comments/new/:post_id' => 'comments#new', :as => :new_comment

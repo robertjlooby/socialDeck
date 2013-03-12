@@ -59,11 +59,12 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.confirmed_user = false
 
     respond_to do |format|
       if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        @user.send_account_activation
+        format.html { redirect_to root_url, notice: "Email sent with account confirmation instructions." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -97,6 +98,25 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /users/new/:token
+  # GET /users/new/:token.json
+  def confirm
+    @user = User.find_by_user_confirmation_token(params[:token])
+    if @user.present?
+      @user.confirmed_user = true
+      session[:user_id] = @user.id
+      respond_to do |format|
+        format.html { redirect_to @user, :notice => "Your account has been confirmed!"}
+        format.json { head :no_content}
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to sign_in_url, :notice => "Account not found.  Please try resetting your password."}
+        format.json { head :no_content}
+      end
     end
   end
 end
