@@ -70,7 +70,7 @@ Socialdeck::Application.configure do
 
   # Mail setup for socialdeck1@gmail.com
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "www.social-deck.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => "social-deck.herokuapp.com" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "smtp.gmail.com",
