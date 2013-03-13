@@ -31,6 +31,8 @@ end
 
 group :production do
 	gem 'pg'
+	# use Amazon S3 for production image storage
+	gem 'aws-sdk'
 end
 
 group :development do
