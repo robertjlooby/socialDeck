@@ -6,15 +6,19 @@
   <b>Userame:</b>
   <%= @user.username %>
 </p>
-
-<p>
-  <%= link_to(image_tag(@user.gravatar_url(:default => "identicon", :size => "50px")), "https://en.gravatar.com/site/login", :confirm => "Visit gravatar.com to edit your avatar?", :target => '_blank')%>
-</p>
-
 <p>
   <b>Email:</b>
   <%= @user.email %>
 </p>
+<%= link_to 'Edit profile', edit_user_path(@user) %>
+<p>
+  <% if @user.id == session[:user_id] #view own profile%>
+    <%= link_to(image_tag(@user.gravatar_url(:default => "identicon", :size => "150px")), "https://en.gravatar.com/site/login", :confirm => "Visit gravatar.com to edit your avatar?", :target => '_blank', :title => "Change your avatar", :id => "gravatar-link")%>
+  <% else %>
+    <%= image_tag(@user.gravatar_url(:default => "identicon", :size => "50px")) %>
+  <% end %>
+</p>
+
 <h3><%= @user.username %>'s posts</h3>
 <%= paginate @posts %>
 <% @posts.each do |post| %>
@@ -27,10 +31,8 @@
   <p>
     <%= link_to 'Post something', new_post_url %>
   </p>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
 <% elsif @current_user.follows.exists?(:followee_id => @user.id, :follower_id => session[:user_id]) %>
     <%= link_to "Unfollow #{@user.username}", follow_url(@user.id), :method => :delete %>
   <% elsif @current_user.id != @user.id%>
     <%= link_to "Follow #{@user.username}", follow_url(@user.id), :method => :post %>
   <% end %>
-<%= link_to 'Back', users_path %>

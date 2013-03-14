@@ -11,12 +11,15 @@ class User < ActiveRecord::Base
   has_gravatar
 
   validates_uniqueness_of :username
+  validates_uniqueness_of :email
 
   validates_presence_of :username
   validates_presence_of :name
   validates_presence_of :email
   validates_presence_of :password, :on => :create
   validates_presence_of :password_confirmation, :on => :create
+
+  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
 
   # used to generate unique random validation tokens for users
   def generate_token(column)
@@ -36,5 +39,9 @@ class User < ActiveRecord::Base
     generate_token(:user_confirmation_token)
     save!
     UserMailer.activate_account(self).deliver
+  end
+
+  def to_param
+    "#{self.id}-#{self.username.parameterize}"
   end
 end

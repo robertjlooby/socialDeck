@@ -18,13 +18,13 @@
   <div class="field">
     <%= f.label :post_type, "Type of post:" %><br />
     <%= f.radio_button :post_type, 0%>
-    <%= f.label :post_type, "Text Only", :value => 'text_only' %><br />
+    <%= f.label :post_type, "Text Only", :value => 0 %><br />
     <%= f.radio_button :post_type, 1%>
-    <%= f.label :post_type, "Picture", :value => 'picture' %><br />
+    <%= f.label :post_type, "Picture", :value => 1 %><br />
     <%= f.radio_button :post_type, 2%>
-    <%= f.label :post_type, "Video", :value => 'video' %><br />
+    <%= f.label :post_type, "Video", :value => 2 %><br />
   </div>
-  <div class="field default-hidden">
+  <div id="post-file-field" class="field">
     <%= f.file_field :file%>
   </div>
   <div class="actions">

@@ -32,4 +32,8 @@ class Post < ActiveRecord::Base
       end
     end
   end
+
+  def to_param
+    "#{self.id}-#{self.user.username.parameterize}"
+  end
 end

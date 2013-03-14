@@ -1,2 +1,2 @@
-$("#post<%= @comment.post.id %>-new-comment-link").prepend("<div class=\"post-comment\"><%= j(render @comment) %></div>");
+$("#post<%= @comment.post.id %>-new-comment-button").before("<div class=\"post-comment\"><%= j(render @comment) %></div>");
 $("#post<%= @comment.post.id %>-new-comment").val("").toggle();

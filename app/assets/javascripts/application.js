@@ -13,3 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//enable tooltips
+$(function() {
+	$( document ).tooltip();
+});

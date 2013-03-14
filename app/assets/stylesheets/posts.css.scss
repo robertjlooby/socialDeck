@@ -1,7 +1,7 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.default-hidden {
+#post-file-field {
 	display: none;
 }
 
@@ -9,6 +9,7 @@
 	.content-area {
 		margin-left: 55px;
 		margin-top: -60px;
+		border-bottom: 1px solid gray;
 		p {
 			margin: 2px;
 		}
