@@ -12,9 +12,26 @@
  *= require_tree .
  */
  @import "font-awesome";
+ @import "comments.css.scss";
+ @import "friends.css.scss";
+ @import "password_resets.css.scss";
+ @import "posts.css.scss";
+ @import "posttags.css.scss";
+ @import "scaffolds.css.scss";
+ @import "tags.css.scss";
+ @import "users.css.scss";
 // don't want font-awesome symbols underlined
 [class^="icon-"] {
 	text-decoration: none;
+}
+
+//make the Twitter bird blue!
+.icon-twitter {
+	color: #4099FF;
+	&:hover {
+		color: #FFF;
+		background-color: #4099FF;
+	}
 }
 
 nav {

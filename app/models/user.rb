@@ -44,4 +44,17 @@ class User < ActiveRecord::Base
   def to_param
     "#{self.id}-#{self.username.parameterize}"
   end
+
+  def as_json(options={})
+    {
+      id: self.id,
+      username: self.username,
+      name: self.name
+    }
+  end
+
+  def twitter
+    @twitter ||= Twitter::Client.new(oauth_token: self.twitter_oauth_token, oauth_token_secret: self.twitter_oauth_token_secret)
+  end
+
 end

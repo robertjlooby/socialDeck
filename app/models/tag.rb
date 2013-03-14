@@ -7,4 +7,10 @@ class Tag < ActiveRecord::Base
   has_many :posttags
   has_many :posts, :through => :posttags
 
+  def as_json(options={})
+    {
+    	tagname: self.tagname
+    }
+  end
+
 end

@@ -10,14 +10,28 @@
   <b>Email:</b>
   <%= @user.email %>
 </p>
-<%= link_to 'Edit profile', edit_user_path(@user) %>
-<p>
-  <% if @user.id == session[:user_id] #view own profile%>
+<% if @user.id == session[:user_id] #view own profile%>
+  <p><%= link_to 'Edit profile', edit_user_path(@user) %></p>
+  <p>
+    <b>Accounts currently on your social deck:</b>
+    <% if @user.twitter_id.present? %>
+      <%= link_to 'http://www.twitter.com', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
+    <% end %>
+  <p>
+    <b>Add accounts to your social deck:</b>
+    <% unless @user.twitter_id.present? %>
+      <%= link_to '/auth/twitter', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
+    <% end %>
+  </p>
+  <p>
     <%= link_to(image_tag(@user.gravatar_url(:default => "identicon", :size => "150px")), "https://en.gravatar.com/site/login", :confirm => "Visit gravatar.com to edit your avatar?", :target => '_blank', :title => "Change your avatar", :id => "gravatar-link")%>
-  <% else %>
+  </p>
+<% else %>
+  <p>
     <%= image_tag(@user.gravatar_url(:default => "identicon", :size => "50px")) %>
-  <% end %>
-</p>
+  </p>
+<% end %>
+
 
 <h3><%= @user.username %>'s posts</h3>
 <%= paginate @posts %>

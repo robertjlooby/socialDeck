@@ -23,4 +23,7 @@ Socialdeck::Application.routes.draw do
 
   #search goes here to get redirected
   get 'application' => 'application#index'
+
+  get 'auth/:provider/callback', :to => 'sessions#add'
+  get 'auth/failure', :to => 'public#index'
 end

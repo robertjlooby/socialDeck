@@ -36,4 +36,12 @@ class Post < ActiveRecord::Base
   def to_param
     "#{self.id}-#{self.user.username.parameterize}"
   end
+
+  def as_json(options={})
+    {
+      user_id: self.user_id,
+      body: self.body,
+      post_type: self.post_type
+    }
+  end
 end
