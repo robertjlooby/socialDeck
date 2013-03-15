@@ -34,6 +34,7 @@ class FeedsController < ApplicationController
     t = @user.twitter
     unless t.present?
       redirect_to @user, :notice => "Please add your twitter account!"
+      return
     end
     @tweets = t.home_timeline
     @posts = []
