@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314174013) do
+ActiveRecord::Schema.define(:version => 20130315141308) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -39,12 +39,14 @@ ActiveRecord::Schema.define(:version => 20130314174013) do
     t.integer  "user_id"
     t.text     "body"
     t.integer  "post_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.integer  "tweet_id"
+    t.integer  "tweeter_twitter_id"
   end
 
   create_table "posttags", :force => true do |t|

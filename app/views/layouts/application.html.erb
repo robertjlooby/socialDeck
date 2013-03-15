@@ -6,7 +6,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= @body_class %>">
 
 	<nav class="clearfix">
 		<ul>
@@ -19,6 +19,7 @@
 			</li>
 			<% if session[:user_id] %>
 				<li><%= link_to 'See your feed', feeds_url %></li>
+				<li><%= link_to 'See your Twitter feed', twitter_feed_url %></li>
 				<li><%= link_to "My Profile", user_url(session[:user_id]) %></li>
 				<li><%= link_to "Sign Out", sign_out_url %></li>
 			<% else %>

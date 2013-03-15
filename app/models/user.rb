@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
 
   def twitter
     @twitter ||= Twitter::Client.new(oauth_token: self.twitter_oauth_token, oauth_token_secret: self.twitter_oauth_token_secret)
+    unless self.twitter_oauth_token.present? && self.twitter_oauth_token_secret.present?
+      @twitter = nil
+    end
+    @twitter
   end
 
 end

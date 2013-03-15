@@ -20,6 +20,7 @@ Socialdeck::Application.routes.draw do
   delete 'follow/:id' => 'follows#destroy', :as => :follow
 
   get 'feeds' => 'feeds#index', :as => :feeds
+  get 'feeds/twitter' => 'feeds#twitter', :as => :twitter_feed
 
   #search goes here to get redirected
   get 'application' => 'application#index'

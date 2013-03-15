@@ -1,11 +1,13 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'vars';
 #post-file-field {
 	display: none;
 }
 
 [class^="_post"] {
+	float: left;
 	.content-area {
 		margin-left: 55px;
 		margin-top: -60px;
@@ -24,4 +26,11 @@
 
 [id^="post"][id$="-new-comment"] {
 	display: none;
+}
+
+.twitter-background {
+	background-color: $twitter-blue;
+	nav {
+		background-color: darken($twitter-blue, 10%);
+	}
 }

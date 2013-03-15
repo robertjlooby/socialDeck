@@ -9,8 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  */
+ @import "vars";
+ 
  @import "font-awesome";
  @import "comments.css.scss";
  @import "friends.css.scss";
@@ -27,10 +28,10 @@
 
 //make the Twitter bird blue!
 .icon-twitter {
-	color: #4099FF;
+	color: $twitter-blue;
 	&:hover {
 		color: #FFF;
-		background-color: #4099FF;
+		background-color: $twitter-blue;
 	}
 }
 

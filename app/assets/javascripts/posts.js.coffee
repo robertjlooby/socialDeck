@@ -25,6 +25,12 @@ $ ->
 			$("#post#{postNum}-new-comment-button").click ->
 				$("#post#{postNum}-new-comment").val("").toggle().select()
 
-# replace simple links with embeds
+# Use masonry.js to arrange posts 
+container = $('body')
 $ ->
-	$('[class^="_post"]').embedly({key: "be396b488c444eebaf529574937930f4"})
+	container.imagesLoaded ->
+		container.masonry({
+			itemSelector : '[class^="_post"]',
+			columnWidth : ->
+				containerWidth/3;
+			})

@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  # post_types : 0=>text only, 1=>picture, 2=>Video
+  # post_types : 0=>text only, 1=>picture, 2=>Video, 3=>Twitter
   attr_accessible :body, :post_type, :file
   has_attached_file :file, :styles => {:micro => "10x10>", :thumb => "50x50>"}, :default_url => "missing.png"
 
@@ -13,8 +13,10 @@ class Post < ActiveRecord::Base
   validates_presence_of :post_type
   validate :file_if_needed
 
+  validates_uniqueness_of :tweet_id
+
   def file_if_needed
-    unless post_type == 0
+    if post_type == 1 || post_type == 2
       validates_presence_of :file
     end
   end
