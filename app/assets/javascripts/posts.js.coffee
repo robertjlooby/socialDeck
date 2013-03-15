@@ -24,3 +24,7 @@ $ ->
 			postNum = lable.id[4]
 			$("#post#{postNum}-new-comment-button").click ->
 				$("#post#{postNum}-new-comment").val("").toggle().select()
+
+# replace simple links with embeds
+$ ->
+	$('[class^="_post"]').embedly({key: "be396b488c444eebaf529574937930f4"})
