@@ -3,7 +3,7 @@ namespace :twitter do
 	task :add_user_ids => :environment do
 		posts = Post.where(:user_id => -1)
 		posts.each do |post|
-			if User.exists(:twitter_id => post.tweeter_twitter_id)
+			if User.exists?(:twitter_id => post.tweeter_twitter_id)
 	          post.user_id = User.find_by_twitter_id(post.tweeter_twitter_id).id
 	          post.save!
 	        end

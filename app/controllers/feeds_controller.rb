@@ -45,7 +45,7 @@ class FeedsController < ApplicationController
         p = Post.new
         p.tweet_id = tweet[:id]
         p.tweeter_twitter_id = tweet[:user][:id]
-        if User.exists(:twitter_id => tweet[:user][:id])
+        if User.exists?(:twitter_id => tweet[:user][:id])
           p.user_id = User.find_by_twitter_id(tweet[:user][:id]).id
         else
           p.user_id = -1
