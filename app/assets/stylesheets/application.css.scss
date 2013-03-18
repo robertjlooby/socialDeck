@@ -35,6 +35,15 @@
 	}
 }
 
+//make the Facebook F blue!
+.icon-facebook {
+	color: $facebook-blue;
+	&:hover {
+		color: #FFF;
+		background-color: $facebook-blue;
+	}
+}
+
 nav {
 	display: block;
 	ul li {

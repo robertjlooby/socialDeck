@@ -61,4 +61,11 @@ class User < ActiveRecord::Base
     @twitter
   end
 
+  def facebook
+    @facebook ||= FbGraph::User.me(self.facebook_oauth_token).fetch
+    unless self.facebook_oauth_token.present?
+      @facebook = nil
+    end
+    @facebook
+  end
 end

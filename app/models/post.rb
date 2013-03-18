@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  # post_types : 0=>text only, 1=>picture, 2=>Video, 3=>Twitter
+  # post_types : 0=>text only, 1=>picture, 2=>Video, 3=>Twitter, 4=>Facebook
   attr_accessible :body, :post_type, :file
   has_attached_file :file, :styles => {:micro => "10x10>", :thumb => "50x50>"}, :default_url => "missing.png"
 

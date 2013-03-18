@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20130318162032) do
     t.integer  "tweet_id"
     t.integer  "tweeter_twitter_id"
     t.integer  "poster_facebook_id"
-    t.integer  "fb_post_id"
+    t.string   "facebook_post_id"
   end
 
   create_table "posttags", :force => true do |t|

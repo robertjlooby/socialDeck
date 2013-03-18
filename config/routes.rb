@@ -21,6 +21,7 @@ Socialdeck::Application.routes.draw do
 
   get 'feeds' => 'feeds#index', :as => :feeds
   get 'feeds/twitter' => 'feeds#twitter', :as => :twitter_feed
+  get 'feeds/facebook' => 'feeds#facebook', :as => :facebook_feed
 
   #search goes here to get redirected
   get 'application' => 'application#index'

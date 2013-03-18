@@ -45,6 +45,7 @@ class SessionsController < ApplicationController
       @user.facebook_username = request.env['omniauth.auth'][:info][:nickname]
       @user.facebook_id = request.env['omniauth.auth'][:uid]
       @user.save!
+      @user.facebook
       redirect_to @user, :notice => "Now you have facebook"
     else
       redirect_to @user, :notice => "#{params[:provider]} verification failed"

@@ -54,14 +54,57 @@ class FeedsController < ApplicationController
         p.created_at = tweet[:created_at].to_datetime
         url = "https://api.twitter.com/1/statuses/oembed.json?id=#{tweet[:id]}&omit_script=true"
         p.body = JSON.parse(open(URI.parse(url)).read)['html']
-        p.save!
-        @posts.push(p)
+        if p.save!
+          @posts.push(p)
+        end
       end
     end
 
     @body_class = 'twitter-background'
     respond_to do |format|
       format.html # twitter.html.erb
+      format.json { render json: @posts }
+    end
+  end
+
+  # GET /feeds/facebook
+  # GET /feeds/facebook.json
+  def facebook
+    @user = User.find(session[:user_id])
+    f = @user.facebook
+    unless f.present?
+      redirect_to @user, :notice => "Please add your facebook account!"
+      return
+    end
+    @feed = f.feed
+    @posts = []
+    @feed.each do |post|
+      if Post.exists?(:facebook_post_id => post.raw_attributes[:id])
+        @posts.push(Post.find_by_facebook_post_id(post.raw_attributes[:id]))
+      else
+        p = Post.new
+        p.poster_facebook_id, p.facebook_post_id = post.raw_attributes[:id].split("_")
+        #p.poster_facebook_id = post.from.raw_attributes[:id]
+        if User.exists?(:facebook_id => post.from.raw_attributes[:id])
+          p.user_id = User.find_by_facebook_id(post.from.raw_attributes[:id]).id
+        else
+          p.user_id = -2
+        end
+        p.post_type = 4
+        p.created_at = post.created_time.to_datetime
+        #url = "http://noembed.com/embed?url=#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
+        url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
+        #p.body = JSON.parse(open(URI.parse(url)).read)['html']
+        puts JSON.parse(open(URI.parse(url)).read)
+        if p.save!
+          @posts.push(p)
+        end
+      end
+    end
+
+    @body_class = 'facebook-background'
+    respond_to do |format|
+      format.html # facebook.html.erb
       format.json { render json: @posts }
     end
   end
