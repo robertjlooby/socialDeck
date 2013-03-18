@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315141308) do
+ActiveRecord::Schema.define(:version => 20130318162032) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20130315141308) do
     t.datetime "file_updated_at"
     t.integer  "tweet_id"
     t.integer  "tweeter_twitter_id"
+    t.integer  "poster_facebook_id"
+    t.integer  "fb_post_id"
   end
 
   create_table "posttags", :force => true do |t|
@@ -78,6 +80,9 @@ ActiveRecord::Schema.define(:version => 20130315141308) do
     t.string   "twitter_id"
     t.string   "twitter_oauth_token"
     t.string   "twitter_oauth_token_secret"
+    t.string   "facebook_username"
+    t.integer  "facebook_id"
+    t.string   "facebook_oauth_token"
   end
 
 end

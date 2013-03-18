@@ -17,10 +17,16 @@
     <% if @user.twitter_id.present? %>
       <%= link_to 'http://www.twitter.com', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
     <% end %>
+    <% if @user.facebook_id.present? %>
+      <%= link_to 'http://www.facebook.com', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
+    <% end %>
   <p>
     <b>Add accounts to your social deck:</b>
     <% unless @user.twitter_id.present? %>
       <%= link_to '/auth/twitter', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
+    <% end %>
+    <% unless @user.facebook_id.present? %>
+      <%= link_to '/auth/facebook', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
     <% end %>
   </p>
   <p>
