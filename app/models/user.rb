@@ -54,19 +54,19 @@ class User < ActiveRecord::Base
   end
 
   def twitter
-    @twitter ||= Twitter::Client.new(oauth_token: self.twitter_oauth_token, oauth_token_secret: self.twitter_oauth_token_secret)
-    unless self.twitter_oauth_token.present? && self.twitter_oauth_token_secret.present?
+    if self.twitter_oauth_token.present? && self.twitter_oauth_token_secret.present?
+      @twitter ||= Twitter::Client.new(oauth_token: self.twitter_oauth_token, oauth_token_secret: self.twitter_oauth_token_secret)
+    else
       @twitter = nil
     end
-    @twitter
   end
 
   def facebook
-    @facebook ||= FbGraph::User.me(self.facebook_oauth_token).fetch
-    unless self.facebook_oauth_token.present?
+    if self.facebook_oauth_token.present?
+      @facebook ||= FbGraph::User.me(self.facebook_oauth_token).fetch
+    else
       @facebook = nil
     end
-    @facebook
   end
 
   def github
