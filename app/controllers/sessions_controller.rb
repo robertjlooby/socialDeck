@@ -37,6 +37,7 @@ class SessionsController < ApplicationController
     @user.github_oauth_token = nil
     @user.github
 
+    @user.save!
     reset_session
     redirect_to root_url
     return
