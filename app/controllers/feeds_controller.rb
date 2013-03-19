@@ -53,12 +53,14 @@ class FeedsController < ApplicationController
         p.post_type = 3
         p.created_at = tweet[:created_at].to_datetime
         url = "https://api.twitter.com/1/statuses/oembed.json?id=#{tweet[:id]}&omit_script=true"
-        tweet_json = JSON.parse(open(URI.parse(url)).read)
-        unless tweet_json['error'].present?
-          p.body = tweet_json['html']
+        begin
+          tweet_page = open(URI.parse(url))
+          p.body = JSON.parse(tweet_page.read)['html']
           if p.save!
             @posts.push(p)
           end
+        rescue
+          # Tried to access a protected tweet, just skip it
         end
       end
     end

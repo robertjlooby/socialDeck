@@ -17,7 +17,7 @@
 					<%= select_tag 'search_type', "<option selected=\"selected\">Posts</option><option>Users</option>".html_safe %>
 				<% end %>
 			</li>
-			<% if session[:user_id] %>
+			<% if session[:user_id].present? %>
 				<li><%= link_to 'See your feed', feeds_url %></li>
 				<li><%= link_to 'See your Twitter feed', twitter_feed_url %></li>
 				<li><%= link_to 'See your Facebook feed', facebook_feed_url %></li>
