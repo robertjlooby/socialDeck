@@ -4,4 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+# Silence the warnings Heroku creates
+ActiveSupport::Deprecation.silenced = true
+
 Socialdeck::Application.load_tasks
