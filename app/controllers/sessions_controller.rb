@@ -47,6 +47,13 @@ class SessionsController < ApplicationController
       @user.save!
       @user.facebook
       redirect_to @user, :notice => "Now you have facebook"
+    elsif params[:provider] == 'github'
+      @user.github_oauth_token = request.env['omniauth.auth'][:credentials][:token]
+      @user.github_username = request.env['omniauth.auth'][:info][:nickname]
+      @user.github_id = request.env['omniauth.auth'][:uid]
+      @user.save!
+      #@user.github
+      redirect_to @user, :notice => "Now you have github"
     else
       redirect_to @user, :notice => "#{params[:provider]} verification failed"
     end

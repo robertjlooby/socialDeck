@@ -59,6 +59,12 @@ GEM
       tzinfo
     font-awesome-rails (3.0.2.0)
       railties (>= 3.1)
+    github_api (0.9.0)
+      faraday (~> 0.8.1)
+      hashie (~> 1.2.0)
+      multi_json (~> 1.4)
+      nokogiri (~> 1.5.2)
+      oauth2
     gravtastic (3.2.6)
     hashie (1.2.0)
     hike (1.2.1)
@@ -95,6 +101,9 @@ GEM
       rack
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-github (1.1.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -184,11 +193,13 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   fb_graph
   font-awesome-rails
+  github_api
   gravtastic
   jquery-rails
   kaminari
   omniauth
   omniauth-facebook
+  omniauth-github
   omniauth-twitter
   paperclip (~> 3.0)
   pg

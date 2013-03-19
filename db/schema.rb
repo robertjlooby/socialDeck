@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318162032) do
+ActiveRecord::Schema.define(:version => 20130319025243) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20130318162032) do
     t.integer  "tweeter_twitter_id"
     t.integer  "poster_facebook_id"
     t.string   "facebook_post_id"
+    t.integer  "github_post_id"
+    t.integer  "poster_github_id"
   end
 
   create_table "posttags", :force => true do |t|
@@ -83,6 +85,9 @@ ActiveRecord::Schema.define(:version => 20130318162032) do
     t.string   "facebook_username"
     t.integer  "facebook_id"
     t.string   "facebook_oauth_token"
+    t.string   "github_username"
+    t.integer  "github_id"
+    t.string   "github_oauth_token"
   end
 
 end

@@ -26,6 +26,9 @@ gem 'twitter'
 gem 'omniauth-facebook'
 gem 'fb_graph'
 
+gem 'omniauth-github'
+gem 'github_api'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
