@@ -53,10 +53,12 @@ class FeedsController < ApplicationController
         p.post_type = 3
         p.created_at = tweet[:created_at].to_datetime
         url = "https://api.twitter.com/1/statuses/oembed.json?id=#{tweet[:id]}&omit_script=true"
-        puts url
-        p.body = JSON.parse(open(URI.parse(url)).read)['html']
-        if p.save!
-          @posts.push(p)
+        tweet_json = JSON.parse(open(URI.parse(url)).read)
+        unless tweet_json['error'].present?
+          p.body = tweet_json['html']
+          if p.save!
+            @posts.push(p)
+          end
         end
       end
     end
