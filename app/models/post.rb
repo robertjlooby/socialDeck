@@ -24,14 +24,11 @@ class Post < ActiveRecord::Base
   after_save :handle_tagging
 
   def handle_tagging
-  	words = self.body.split
-    words.each do |word|
-      if word.start_with?('#')
-        word.gsub!('#', '').downcase!
-        unless word.length<1 or Tag.exists?(:tagname => word)
-        	Tag.create(:tagname => word)
-        end
+  	self.body.scan(/\B#\w+/).each do |word|
+      unless Tag.exists?(:tagname => word)
+      	Tag.create(:tagname => word)
       end
+      Posttag.create(:post_id => self.id, :tag_id => Tag.find_by_tagname(word).id)
     end
   end
 
