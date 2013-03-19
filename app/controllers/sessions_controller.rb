@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   #can only add new services if you are a signed in user
-  before_filter :authorize_signed_in, :only => [:add]
+  before_filter :authorize_signed_in, :only => [:add, :destroy]
 
   def authorize_signed_in
     unless session[:user_id].present?
@@ -25,6 +25,18 @@ class SessionsController < ApplicationController
   end
   
   def destroy
+    @user = User.find_by_id(session[:user_id])
+
+    @user.twitter_oauth_token = nil
+    @user.twitter_oauth_token_secret = nil
+    @user.twitter
+
+    @user.facebook_oauth_token = nil
+    @user.facebook
+
+    @user.github_oauth_token = nil
+    @user.github
+
     reset_session
     redirect_to root_url
     return

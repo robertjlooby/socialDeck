@@ -14,24 +14,24 @@
   <p><%= link_to 'Edit profile', edit_user_path(@user) %></p>
   <p>
     <b>Accounts currently on your social deck:</b>
-    <% if @user.twitter_id.present? %>
+    <% if @user.twitter.present? %>
       <%= link_to 'http://www.twitter.com', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
     <% end %>
-    <% if @user.facebook_id.present? %>
+    <% if @user.facebook.present? %>
       <%= link_to 'http://www.facebook.com', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
     <% end %>
-    <% if @user.github_id.present? %>
+    <% if @user.github.present? %>
       <%= link_to 'http://www.github.com', :title => 'Github' do %><i class='icon-github'></i><% end %>
     <% end %>
   <p>
     <b>Add accounts to your social deck:</b>
-    <% unless @user.twitter_id.present? %>
+    <% unless @user.twitter.present? %>
       <%= link_to '/auth/twitter', :title => 'Twitter' do %><i class='icon-twitter'></i><% end %>
     <% end %>
-    <% unless @user.facebook_id.present? %>
+    <% unless @user.facebook.present? %>
       <%= link_to '/auth/facebook', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
     <% end %>
-    <% unless @user.github_id.present? %>
+    <% unless @user.github.present? %>
       <%= link_to '/auth/github', :title => 'Github' do %><i class='icon-github'></i><% end %>
     <% end %>
   </p>

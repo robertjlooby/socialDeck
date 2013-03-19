@@ -68,4 +68,8 @@ class User < ActiveRecord::Base
     end
     @facebook
   end
+
+  def github
+    @github = nil
+  end
 end
