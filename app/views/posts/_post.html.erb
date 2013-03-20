@@ -3,16 +3,22 @@
   <% if post.post_type == 3 || post.post_type == 4 #tweet or facebook %>
     <p><%= post.body.html_safe %></p>
   <% else %>
-    <%= image_tag post.user.gravatar_url(:default => "identicon", :size => "50px") %>
+    <% if post.user.present? %>
+      <%= image_tag post.user.gravatar_url(:default => "identicon", :size => "50px") %>
+    <% end %>
     <div class="content-area">
-      <p><%= link_to post.user.username, post.user, :title => "View this user's profile" %></p>
+      <p>
+        <% if post.user.present? %>
+          <%= link_to post.user.username, post.user, :title => "View this user's profile" %>
+          <% end %>
+      </p>
       <% if post.post_type == 1 #picture in post %>
         <%= image_tag post.file.url %>
       <% end %>
       <p><%= post.body %></p>
       <p>
         <%= link_to 'Show', post %>
-        <% if post.user_id == session[:user_id] %>
+        <% if post.user.present? && post.user_id == session[:user_id] %>
           <%= link_to post_path(post), :method => :delete do %><i class="icon-trash"></i><% end %>
           <%= link_to edit_post_path(post) do %><i class="icon-edit"></i><% end %>
         <% end %>

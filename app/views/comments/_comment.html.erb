@@ -1,9 +1,15 @@
-<%= image_tag comment.user.gravatar_url(:default => "identicon", :size => "40px") %>
+<% if comment.user.present? %>
+	<%= image_tag comment.user.gravatar_url(:default => "identicon", :size => "40px") %>
+<% end %>
 <div class="content-area">
-  <p><%= link_to comment.user.username, comment.user, :title => "View this user's profile" %></p>
+  <p>
+  	<% if comment.user.present? %>
+  		<%= link_to comment.user.username, comment.user, :title => "View this user's profile" %>
+  	<% end %>
+  </p>
   <p><%= comment.body %></p>
   <p>
-    <% if comment.user_id == session[:user_id] %>
+    <% if comment.user.present? && comment.user_id == session[:user_id] %>
       <%= link_to comment_path(comment), :method => :delete do %><i class="icon-trash"></i><% end %>
       <%= link_to edit_comment_path(comment)  do %><i class="icon-edit"></i><% end %>
     <% end %>
