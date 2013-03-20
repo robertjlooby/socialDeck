@@ -1,6 +1,6 @@
 <% show_comments = false unless defined? show_comments %>
 <div class="_post<%= post.id %>">
-  <% if post.post_type == 3 || post.post_type == 4 #tweet or facebook %>
+  <% if post.post_type == 3 #tweet %>
     <p><%= post.body.html_safe %></p>
   <% else %>
     <% if post.user.present? %>

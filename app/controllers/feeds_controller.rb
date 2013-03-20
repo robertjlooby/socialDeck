@@ -119,6 +119,11 @@ class FeedsController < ApplicationController
       end
     end
 
+    puts "Facebook posts:"
+    @posts.each do |p|
+      puts "Post #{p.id}: #{p.body}"
+    end
+
     @body_class = 'facebook-background'
     respond_to do |format|
       format.html # facebook.html.erb
