@@ -21,7 +21,7 @@ $ ->
 	postLables = $('[id^="post"][id$="-new-comment-button"]')
 	for lable in postLables
 		do(lable) ->
-			postNum = lable.id[4]
+			postNum = lable.id.replace(/[a-zA-z-]/g, "")
 			$("#post#{postNum}-new-comment-button").click ->
 				$("#post#{postNum}-new-comment").val("").toggle().select()
 
