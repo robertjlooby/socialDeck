@@ -99,29 +99,28 @@ class FeedsController < ApplicationController
         p.created_at = post.created_time.to_datetime
         url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
         p_json = JSON.parse(open(URI.parse(url)).read)
-        p.body = p_json[:message]
+        if p_json['message'].present?
+          p.body = p_json['message']
+        elsif p_json['story'].present?
+          p.body = p_json['story']
+        end
         if p.body.present? && p.save!
           @posts.push(p)
-          p_json[:comments][:data].each do |com|
+          p_json['comments']['data'].each do |com|
             c = Comment.new
-            c.poster_facebook_id = com[:from][:id]
+            c.poster_facebook_id = com['from']['id']
             if User.exists?(:facebook_id => c.poster_facebook_id)
               c.user_id = User.find_by_facebook_id(c.poster_facebook_id).id
             else
               c.user_id = -3
             end
-            c.body = com[:message]
-            c.created_at = com[:created_time].to_datetime
+            c.body = com['message']
+            c.created_at = com['created_time'].to_datetime
             c.post_id = p.id
             c.save!
           end
         end
       end
-    end
-
-    puts "Facebook posts:"
-    @posts.each do |p|
-      puts "Post #{p.id}: #{p.body}"
     end
 
     @body_class = 'facebook-background'
