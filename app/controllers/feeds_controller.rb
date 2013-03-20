@@ -84,12 +84,12 @@ class FeedsController < ApplicationController
     @feed = f.feed
     @posts = []
     @feed.each do |post|
-      if Post.exists?(:facebook_post_id => post.raw_attributes[:id])
-        @posts.push(Post.find_by_facebook_post_id(post.raw_attributes[:id]))
+      fb_post_id = post.raw_attributes[:id].split("_")[1]
+      if Post.exists?(:facebook_post_id => fb_post_id)
+        @posts.push(Post.find_by_facebook_post_id(fb_post_id))
       else
         p = Post.new
         p.poster_facebook_id, p.facebook_post_id = post.raw_attributes[:id].split("_")
-        #p.poster_facebook_id = post.from.raw_attributes[:id]
         if User.exists?(:facebook_id => post.from.raw_attributes[:id])
           p.user_id = User.find_by_facebook_id(post.from.raw_attributes[:id]).id
         else
@@ -97,14 +97,25 @@ class FeedsController < ApplicationController
         end
         p.post_type = 4
         p.created_at = post.created_time.to_datetime
-        #url = "http://noembed.com/embed?url=#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
         url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
-        #p.body = JSON.parse(open(URI.parse(url)).read)['html']
-        puts url
-        #puts JSON.parse(open(URI.parse(url)).read)
-        #if p.save!
-        #  @posts.push(p)
-        #end
+        p_json = JSON.parse(open(URI.parse(url)).read)
+        p.body = p_json[:message]
+        if p.body.present? && p.save!
+          @posts.push(p)
+          p_json[:comments][:data].each do |com|
+            c = Comment.new
+            c.poster_facebook_id = com[:from][:id]
+            if User.exists?(:facebook_id => c.poster_facebook_id)
+              c.user_id = User.find_by_facebook_id(c.poster_facebook_id).id
+            else
+              c.user_id = -3
+            end
+            c.body = com[:message]
+            c.created_at = com[:created_time].to_datetime
+            c.post_id = p.id
+            c.save!
+          end
+        end
       end
     end
 
