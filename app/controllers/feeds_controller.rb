@@ -98,7 +98,7 @@ class FeedsController < ApplicationController
         p.post_type = 4
         p.created_at = post.created_time.to_datetime
         #url = "http://noembed.com/embed?url=#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
-        url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"be396b488c444eebaf529574937930f4
+        url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
         #p.body = JSON.parse(open(URI.parse(url)).read)['html']
         logger.debug url
         #puts JSON.parse(open(URI.parse(url)).read)
