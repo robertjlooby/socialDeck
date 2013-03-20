@@ -5,6 +5,8 @@
   <% else %>
     <% if post.user.present? %>
       <%= image_tag post.user.gravatar_url(:default => "identicon", :size => "50px") %>
+    <% else %>
+      <%= image_tag 'missing.png', :size => "50x50" %>
     <% end %>
     <div class="content-area">
       <p>

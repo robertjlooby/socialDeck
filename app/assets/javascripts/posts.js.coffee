@@ -31,8 +31,6 @@ $ ->
 	container.imagesLoaded ->
 		container.masonry({
 			itemSelector : '[class^="_post"]',
-			#isFitWidth : true,
-			gutterWidth : 10,
 			columnWidth : ->
 				containerWidth/6;
 			})

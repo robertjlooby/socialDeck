@@ -1,5 +1,7 @@
 <% if comment.user.present? %>
 	<%= image_tag comment.user.gravatar_url(:default => "identicon", :size => "40px") %>
+<% else %>
+  <%= image_tag 'missing.png', :size => "40x40" %>
 <% end %>
 <div class="content-area">
   <p>

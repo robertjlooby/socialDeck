@@ -12,19 +12,13 @@ class Post < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :post_type
   validate :file_if_needed
-  validate :foreign_id_if_needed
+  
+  validates_uniqueness_of :tweet_id, :if => Proc.new { |post| post.post_type == 3 }
+  validates_uniqueness_of :facebook_post_id, :if => Proc.new { |post| post.post_type == 4 }
 
   def file_if_needed
     if post_type == 1 || post_type == 2
       validates_presence_of :file
-    end
-  end
-
-  def foreign_id_if_needed
-    if post_type == 3
-      validates_uniqueness_of :tweet_id
-    elsif post_type == 4
-      validates_uniqueness_of :facebook_post_id
     end
   end
 
