@@ -102,9 +102,9 @@ class FeedsController < ApplicationController
         #p.body = JSON.parse(open(URI.parse(url)).read)['html']
         puts url
         #puts JSON.parse(open(URI.parse(url)).read)
-        if p.save!
-          @posts.push(p)
-        end
+        #if p.save!
+        #  @posts.push(p)
+        #end
       end
     end
 
