@@ -20,8 +20,8 @@
 			<% if session[:user_id].present? %>
 				<li><%= link_to 'See your feed', feeds_url %></li>
 				<li><%= link_to 'See your Twitter feed', twitter_feed_url %></li>
-				<li><%= link_to 'See your Facebook feed', facebook_feed_url %></li>
-				<li><%= link_to 'See your Github feed', github_feed_url %></li>
+				<li><%= link_to 'See your Facebook posts', facebook_feed_url %></li>
+				<!--<li><%= link_to 'See your Github feed', github_feed_url %></li>-->
 				<li><%= link_to "My Profile", user_url(session[:user_id]) %></li>
 				<li><%= link_to "Sign Out", sign_out_url %></li>
 			<% else %>

@@ -20,9 +20,6 @@
     <% if @user.facebook.present? %>
       <%= link_to 'http://www.facebook.com', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
     <% end %>
-    <% if @user.github.present? %>
-      <%= link_to 'http://www.github.com', :title => 'Github' do %><i class='icon-github'></i><% end %>
-    <% end %>
   <p>
     <b>Add accounts to your social deck:</b>
     <% unless @user.twitter.present? %>
@@ -30,9 +27,6 @@
     <% end %>
     <% unless @user.facebook.present? %>
       <%= link_to '/auth/facebook', :title => 'Facebook' do %><i class='icon-facebook'></i><% end %>
-    <% end %>
-    <% unless @user.github.present? %>
-      <%= link_to '/auth/github', :title => 'Github' do %><i class='icon-github'></i><% end %>
     <% end %>
   </p>
   <p>
