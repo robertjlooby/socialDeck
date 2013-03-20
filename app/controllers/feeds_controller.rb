@@ -100,7 +100,7 @@ class FeedsController < ApplicationController
         #url = "http://noembed.com/embed?url=#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
         url = "#{post.endpoint}?access_token=#{@user.facebook_oauth_token}"
         #p.body = JSON.parse(open(URI.parse(url)).read)['html']
-        logger.debug url
+        puts url
         #puts JSON.parse(open(URI.parse(url)).read)
         if p.save!
           @posts.push(p)
